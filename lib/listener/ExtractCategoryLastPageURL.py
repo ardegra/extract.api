@@ -17,7 +17,11 @@ class ExtractCategoryLastPageURL:
     page = grab.go(url)
     
     last_page_item = page.select(xpath["category"]["lastPage"])
-    print("[ExtractCategoryLastPageURL] item type: {}".format(type(last_page_item)))
+    last_page_url  = last_page_item.attr("href")
+    
+    if "http://" not in last_page_url:
+      if last_page_url[0] != "/":
+        last_page_url = "/{}".format(last_page_url)
     
     last_page_url  = grab.make_url_absolute(last_page_item.attr("href"))
     result         = {"lastPageUrl": last_page_url}
