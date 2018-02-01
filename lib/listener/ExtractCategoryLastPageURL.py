@@ -23,6 +23,7 @@ class ExtractCategoryLastPageURL:
       if last_page_url[0] != "/":
         last_page_url = "/{}".format(last_page_url)
     
+    print("[ExtractCategoryLastPageURL] last_page_url: {}".format(last_page_url))
     last_page_url  = grab.make_url_absolute(last_page_item.attr("href"))
     result         = {"lastPageUrl": last_page_url}
     
