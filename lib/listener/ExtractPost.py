@@ -30,7 +30,7 @@ class ExtractPost:
           "authorName": post.select(xpath["post"]["authorName"]).text(),
           "authorUrl": grab.make_url_absolute(post.select(xpath["post"]["authorUrl"]).attr("href"))
         })
-      except weblib.error.DataNotFound:
-        result["postList"].append({})
+      except weblib.error.DataNotFound as err:
+        result["postList"].append({"error": str(err)})
     res.context["result"] = result
     res.status            = falcon.HTTP_200
