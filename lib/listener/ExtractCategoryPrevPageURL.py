@@ -19,7 +19,8 @@ class ExtractCategoryPrevPageURL:
     
     try:
       prev_page_item = page.select(xpath["category"]["prevPage"])
-      prev_page_url  = grab.make_url_absolute(prev_page_item.attr("href"))
+      prev_page_url  = prev_page_item.attr("href")
+      prev_page_url  = grab.make_url_absolute(prev_page_url, resolve_base=True)
     except weblib.error.DataNotFound:
       prev_page_url = None
     
