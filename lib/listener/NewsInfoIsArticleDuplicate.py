@@ -1,12 +1,14 @@
 import pymongo
 import falcon
 
+from lib.config import Config
+
 class NewsInfoIsArticleDuplicate:
   def on_post(self, req, res):
     doc = req.context["doc"]
     url = doc["url"]
     
-    client = pymongo.MongoClient("mongodb://35.187.233.55:27017/ardegra")
+    client = pymongo.MongoClient("mongodb://{}/ardegra".format(Config.DATABASE_ADDRESS))
     try:
       print("[NewsInfoIsArticleDuplicate] checking url: {}".format(url))
       db        = client["ardegra"]
