@@ -22,6 +22,8 @@ class ExtractArticle:
       if len(content) > 1:
         for c in content:
           real_content = "{}{}".format(real_content, c.text())
+      else:
+        real_content = content.text()
       result = {
         "title": page.select(xpath["article"]["title"]).text(),
         "content": real_content,
