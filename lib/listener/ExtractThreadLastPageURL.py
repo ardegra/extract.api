@@ -17,7 +17,7 @@ class ExtractThreadLastPageURL:
     
     try:
       last_page_item = page.select(xpath["thread"]["lastPage"])
-      last_page_url  = grab.make_url_absolute(last_page_item.attr("href"))
+      last_page_url  = grab.make_url_absolute(last_page_item.attr("href"), resolve_base=True)
     except weblib.error.DataNotFound:
       last_page_url = None
 

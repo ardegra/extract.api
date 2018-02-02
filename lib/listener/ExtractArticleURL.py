@@ -20,7 +20,9 @@ class ExtractArticleURL:
       result           = {"articleUrl": []}
       article_url_list = page.select(xpath["article"]["url"])
       for article_url in article_url_list:
-        result["articleUrl"].append(article_url.attr("href"))
+        article_url = article_url.attr("href")
+        article_url = grab.make_url_absolute(article_url, resolve_base=True)
+        result["articleUrl"].append(article_url)
     except weblib.error.DataNotFound as err:
       raise falcon.HTTPBadRequest("Ops! Something wrong", str(err))
     res.context["result"] = result

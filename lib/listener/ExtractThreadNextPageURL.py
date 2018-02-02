@@ -15,7 +15,7 @@ class ExtractThreadNextPageURL:
 
     try:
       next_page_item = page.select(xpath["thread"]["nextPage"])
-      next_page_url  = grab.make_url_absolute(next_page_item.attr("href"))
+      next_page_url  = grab.make_url_absolute(next_page_item.attr("href"), resolve_base=True)
     except weblib.error.DataNotFound:
       next_page_url = None
 
