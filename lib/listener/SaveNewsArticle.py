@@ -22,11 +22,14 @@ class SaveNewsArticle:
       article.update({"_insert_time": arrow.utcnow().datetime})
       article.update({"permalink": permalink})
       
+      entry_date = article["entryDate"]
       if entry_date_parser == "AntaraOtoEntryDateParser":
         parser     = AntaraOtoEntryDateParser()
-        entry_date = article["entryDate"]
         entry_date = parser.parse(entry_date)
-        article.update({"entryDate": entry_date})
+      elif entry_date_parser == "ArrowDateParser":
+        parser     = ArrowDateParser()
+        entry_date = parser.parse(entry_date)
+      article.update({"entryDate": entry_date})
 
       db          = client["ardegra"]
       inserted_id = db.mention.insert_one(article).inserted_id
