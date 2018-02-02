@@ -17,9 +17,14 @@ class ExtractArticle:
     page = grab.go(url)
     
     try:
+      content      = page.select(xpath["article"]["content"])
+      real_content = ""
+      if len(content) > 1:
+        for c in content:
+          real_content = "{}{}".format(real_content, c.text())
       result = {
         "title": page.select(xpath["article"]["title"]).text(),
-        "content": page.select(xpath["article"]["content"]).text(),
+        "content": real_content,
         "entryDate": page.select(xpath["article"]["entryDate"]).text()
       }
     except weblib.error.DataNotFound as err:
