@@ -19,6 +19,7 @@ class ExtractPost:
     result = {"postList": []}
     
     post_items = page.select(xpath["post"]["item"])
+    print("[ExtractPost] post_items: {}".format(post_items))
     for post in post_items:
       try:
         result["postList"].append({
