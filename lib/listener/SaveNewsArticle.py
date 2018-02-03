@@ -3,6 +3,7 @@ import falcon
 import arrow
 
 from lib.parser.AntaraOtoEntryDateParser import AntaraOtoEntryDateParser
+from lib.parser.ArrowDateParser import ArrowDateParser
 from lib.config import Config
 
 class SaveNewsArticle:
