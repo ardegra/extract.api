@@ -2,11 +2,11 @@ import arrow
 
 from lib.parser.IndonesiaDateParser import IndonesiaDateParser
 
-class DetikOtoEntryDateParser:
+class TempoEntryDateParser:
   def parse(self, entry_date):
-    # Jumat 02 Februari 2018, 15:44 WIB
+    # Jumat, 2 Februari 2018 21:26 WIB
     entry_date = entry_date.split(" ")
-    date       = entry_date[1]
+    date       = str(entry_date[1]).zfill(2)
     month      = IndonesiaDateParser.parse_month_to_number(entry_date[2])
     year       = entry_date[3]
     

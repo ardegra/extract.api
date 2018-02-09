@@ -22,6 +22,8 @@ from lib.listener.ExtractArticle import ExtractArticle
 from lib.listener.ExtractArticleURL import ExtractArticleURL
 from lib.listener.NewsInfoIsArticleDuplicate import NewsInfoIsArticleDuplicate
 
+from lib.listener.ParseEntryDate import ParseEntryDate
+
 cors = CORS(
   allow_all_origins=True,
   allow_all_headers=True,
@@ -46,3 +48,5 @@ api.add_route("/spider/news/extract/articleUrl", ExtractArticleURL())
 api.add_route("/spider/news/info/isArticleDuplicate", NewsInfoIsArticleDuplicate())
 
 api.add_route("/spider/news/save/article", SaveNewsArticle())
+
+api.add_route("/parser/entryDate", ParseEntryDate())

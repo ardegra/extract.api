@@ -1,11 +1,9 @@
 import pymongo
 import falcon
 import arrow
-import requests
 
-from falcon.testing import simulate_post
-
-from lib.parser.ParseEntryDate import ParseEntryDate as PED
+from lib.parser.AntaraOtoEntryDateParser import AntaraOtoEntryDateParser
+from lib.parser.ArrowDateParser import ArrowDateParser
 from lib.config import Config
 
 class SaveNewsArticle:
@@ -25,10 +23,13 @@ class SaveNewsArticle:
       article.update({"_insert_time": arrow.utcnow().datetime})
       article.update({"permalink": permalink})
       
-      print("[SaveNewsArticle] Getting entry date with parser: {}".format(entry_date_parser))
-      entry_date = PED.parse(entry_date_parser, article["entryDate"])
-      entry_date = arrow.get(entry_date).datetime
-      print("[SaveNewsArticle] Here we go: {}".format(entry_date.isoformat()))
+      entry_date = article["entryDate"]
+      if entry_date_parser == "AntaraOtoEntryDateParser":
+        parser     = AntaraOtoEntryDateParser()
+        entry_date = parser.parse(entry_date)
+      elif entry_date_parser == "ArrowDateParser":
+        parser     = ArrowDateParser()
+        entry_date = parser.parse(entry_date)
       article.update({"entryDate": entry_date})
 
       db          = client["ardegra"]
