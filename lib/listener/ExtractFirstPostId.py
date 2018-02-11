@@ -2,6 +2,8 @@ import weblib
 import falcon
 import pymongo
 
+from lib.config import Config
+
 from grab import Grab
 
 class ExtractFirstPostId:
@@ -14,7 +16,7 @@ class ExtractFirstPostId:
 
     grab   = Grab()
     page   = grab.go(url)
-    client = pymongo.MongoClient("mongodb://35.187.233.55:27017/ardegra")
+    client = pymongo.MongoClient("mongodb://{}/ardegra".format(Config.DATABASE_ADDRESS))
   
     try:
       first_post_id_item = page.select(xpath["post"]["firstPostId"])
