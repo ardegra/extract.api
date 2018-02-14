@@ -1,7 +1,11 @@
+import sys
+
 import pymongo
 import arrow
 import falcon
 
+from raven import Client
+from logbook import Logger, StreamHandler
 from lib.config import Config
 
 class SaveForumPost:
@@ -11,7 +15,13 @@ class SaveForumPost:
     crawler_name = doc["crawlerName"]
     country      = doc["country"]
     client       = pymongo.MongoClient("mongodb://{}/ardegra".format(Config.DATABASE_ADDRESS))
+    raven_client = Client()
+    
+    StreamHandler(sys.stdout).push_application()
+    logger = Logger("SaveForumPost")
+    
     try:
+      logger.debug("Attemping to save: {}".format(post["permalink"]))
       entry_date = post["entryDate"]
       entry_date = arrow.get(entry_date).to("utc").isoformat()
       
@@ -25,7 +35,10 @@ class SaveForumPost:
       inserted_id           = db["mention"].insert_one(post).inserted_id
       res.context["result"] = {"insertedId": str(inserted_id), "duplicate": False}
       res.status            = falcon.HTTP_200
+      
+      logger.debug("Saved: {}".format(post["permalink"]))
     except pymongo.errors.DuplicateKeyError:
+      logger.debug("Duplicate document: {}".format(post["permalink"]))
       res.context["result"] = {"insertedId": None, "duplicate": True}
       res.status            = falcon.HTTP_200
     finally:

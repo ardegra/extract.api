@@ -7,12 +7,14 @@ falcon-cors==1.1.7
 grab==0.6.38
 gunicorn==19.7.1
 idna==2.6
+Logbook==1.2.1
 lxml==4.1.1
 pycurl==7.43.0.1
 pymongo==3.6.0
 python-dateutil==2.6.1
 python-mimeparse==1.6.0
 pytils==0.3
+raven==6.5.0
 requests==2.18.4
 selection==0.0.13
 six==1.11.0
