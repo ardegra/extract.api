@@ -8,7 +8,7 @@ grab==0.6.38
 gunicorn==19.7.1
 idna==2.6
 Logbook==1.2.1
-lxml==4.1.1
+lxml==4.6.5
 pycurl==7.43.0.1
 pymongo==3.6.0
 python-dateutil==2.6.1
